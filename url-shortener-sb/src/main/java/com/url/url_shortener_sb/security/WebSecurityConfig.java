@@ -41,6 +41,7 @@ public class WebSecurityConfig {
     }
 
     //  HTTP://DOMAIN.COM/XYZ -> GOOGLE.COM  // SHORT URL
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
