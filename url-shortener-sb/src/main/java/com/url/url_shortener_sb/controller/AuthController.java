@@ -1,5 +1,6 @@
 package com.url.url_shortener_sb.controller;
 
+import com.url.url_shortener_sb.dtos.LoginRequest;
 import com.url.url_shortener_sb.dtos.RegisterRequest;
 import com.url.url_shortener_sb.models.User;
 import com.url.url_shortener_sb.service.UserService;
@@ -23,5 +24,10 @@ public class AuthController {
         user.setRole("ROLE_USER");
         userService.registerUser(user);
         return ResponseEntity.ok("User Registered Successfully");
+    }
+
+    @PostMapping("/public/login")
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest){
+        return ResponseEntity.ok(userService.authenticateUser(loginRequest));
     }
 }
