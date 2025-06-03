@@ -2,8 +2,7 @@ package com.url.url_shortener_sb.service;
 
 import com.url.url_shortener_sb.dtos.*;
 import com.url.url_shortener_sb.models.*;
-import com.url.url_shortener_sb.repository.ClickEventRepository;
-import com.url.url_shortener_sb.repository.UrlMappingRepository;
+import com.url.url_shortener_sb.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.*;
@@ -42,8 +41,8 @@ public class UrlMappingService {
     private String generateShortUrl() {
         String characters = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789";
         Random random = new Random();
-        StringBuilder shortUrl = new StringBuilder(6);
-        for(int i = 0;i < 6;i++){
+        StringBuilder shortUrl = new StringBuilder(8);
+        for(int i = 0;i < 8;i++){
             shortUrl.append(characters.charAt(random.nextInt(characters.length())));
         }
         return shortUrl.toString();
@@ -77,5 +76,20 @@ public class UrlMappingService {
                 start.atStartOfDay(),end.plusDays(1).atStartOfDay());
         return clickEvents.stream().collect(
                 Collectors.groupingBy(click -> click.getClickDate().toLocalDate(),Collectors.counting()));
+    }
+
+    public UrlMapping getOriginalUrl(String shortUrl) {
+        UrlMapping urlMapping = urlMappingRepository.findByShortUrl(shortUrl);
+        if(urlMapping != null){
+            urlMapping.setClickCount(urlMapping.getClickCount() + 1);
+            urlMappingRepository.save(urlMapping);
+
+            //RECORD CLICK EVENT
+            ClickEvent clickEvent = new ClickEvent();
+            clickEvent.setClickDate(LocalDateTime.now());
+            clickEvent.setUrlMapping(urlMapping);
+            clickEventRepository.save(clickEvent);
+        }
+        return urlMapping;
     }
 }
