@@ -2,11 +2,15 @@ import React from 'react'
 import Card from "./Card.jsx";
 import { motion } from "framer-motion";
 import {useNavigate} from "react-router-dom";
+import {useStoreContext} from "../contextApi/ContextApi.jsx";
 
 let desc =
     "Generate short, memorable links with ease using Linkly’s intuitive interface. Share URLs effortlessly across platforms. Optimize your sharing strategy with Linkly. Track clicks and manage your links seamlessly to enhance your online presence. Generate short, memorable links with ease using Linkly’s intuitive interface. Share URLs effortlessly across platforms.";
 const LandingPage = () => {
     const navigate = useNavigate();
+    const { token } = useStoreContext();
+    console.log("TOKEN FROM LANDING PAGE: " + token);
+
     const dashBoardNavigateHandler = () => {
     };
     return (
