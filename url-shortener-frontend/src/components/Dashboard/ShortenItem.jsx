@@ -9,6 +9,7 @@ import {Link,useNavigate} from "react-router-dom";
 import {useStoreContext} from "../../contextApi/ContextApi.jsx";
 import Graph from "./Graph.jsx";
 import {Hourglass} from "react-loader-spinner";
+import api from "../../api/api.js";
 
 
 const ShortenItem = ({originalUrl,shortUrl,clickCount,createdDate}) => {
@@ -32,6 +33,34 @@ const ShortenItem = ({originalUrl,shortUrl,clickCount,createdDate}) => {
         setAnalyticToggle(!analyticToggle);
     }
 
+    const fetchMyShortUrl = async () => {
+        setLoader(true);
+        try {
+            const { data } = await api.get(`/api/urls/analytics/${selectedUrl}?startDate=2024-12-01T00:00:00&endDate=2025-12-31T23:59:59`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            });
+            setAnalyticsData(data);
+            setSelectedUrl("");
+            console.log(data);
+
+        } catch (error) {
+            navigate("/error");
+            console.log(error);
+        } finally {
+            setLoader(false);
+        }
+    }
+
+
+    useEffect(() => {
+        if (selectedUrl) {
+            fetchMyShortUrl();
+        }
+    }, [selectedUrl]);
     return (
         <div className={`bg-slate-100 shadow-lg border border-dotted  border-slate-500 px-6 sm:py-1 py-3 rounded-md  transition-all duration-100 `}>
             <div className={`flex sm:flex-row flex-col  sm:justify-between w-full sm:gap-0 gap-5 py-5 `}>
@@ -65,7 +94,9 @@ const ShortenItem = ({originalUrl,shortUrl,clickCount,createdDate}) => {
                         </div>
 
                         <div className="flex items-center gap-2 font-semibold text-lg text-slate-800">
-                        <span><FaRegCalendarAlt/></span>
+                        <span>
+                            <FaRegCalendarAlt/>
+                        </span>
                         <span className="text-[17px]">
                             {dayjs(createdDate).format("MMM DD,YYYY")}
                         </span>
