@@ -76,7 +76,7 @@ const LoginPage = () => {
                         message="*Password is required"
                         placeholder="Type your password"
                         register={register}
-                        min={6}
+                        min={5}
                         errors={errors}
                     />
                 </div>
