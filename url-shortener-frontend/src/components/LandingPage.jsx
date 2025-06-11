@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {useStoreContext} from "../contextApi/ContextApi.jsx";
 
 let desc =
-    "Generate short, memorable links with ease using Linkly’s intuitive interface. Share URLs effortlessly across platforms. Optimize your sharing strategy with Linklytics. Track clicks and manage your links seamlessly to enhance your online presence. Generate short, memorable links with ease using Linklytics’s intuitive interface. Share URLs effortlessly across platforms.";
+    "Generate short, memorable links with ease using Linkly’s intuitive interface. Share URLs effortlessly across platforms. Optimize your sharing strategy with Linkly. Track clicks and manage your links seamlessly to enhance your online presence. Generate short, memorable links with ease using Linkly’s intuitive interface. Share URLs effortlessly across platforms.";
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -75,7 +75,7 @@ const LandingPage = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                         className="sm:w-[480px] w-[400px] object-cover rounded-md"
-                        src="/images/desktop-wallpaper-one-piece-tattoos-pinterest-shirohige-logo.jpg"
+                        src="/images/assassins-creed-logo-symbol-8.png"
                         alt=""
                     />
                 </div>
