@@ -9,6 +9,7 @@ import DashboardLayout from "./components/Dashboard/DashboardLayout.jsx";
 import Footer from "./components/Footer.jsx";
 import ShortenUrlPage from "./components/ShortenUrlPage.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
+import ErrorPage from "./ErrorPage.jsx";
 
 
 
@@ -25,8 +26,8 @@ const AppRouter =()=>{
                 <Route path="/register" element={<PrivateRoute publicPage={true}><RegisterPage /></PrivateRoute>} />
                 <Route path="/login" element={<PrivateRoute publicPage={true}><LoginPage /></PrivateRoute>} />
                 <Route path="/dashboard" element={ <PrivateRoute publicPage={false}><DashboardLayout /></PrivateRoute>} />
-
-
+                <Route path="/error" element={ <ErrorPage />} />
+                <Route path="*" element={ <ErrorPage message="We can't seem to find the page you're looking for"/>} />
 
             </Routes>
             <Footer/>
